@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int menu (int *opcion, char *titulo, char *opciones,int cantidadOpciones);
-int getInt (char *mensaje, char *mensajeError, int *pResultado, int reintentos,
+
+
+
+int
+
+getInt (char *mensaje, char *mensajeError, int *pResultado, int reintentos,
 	int maximo, int minimo);
 
 int
@@ -10,33 +14,48 @@ main (void)
 {
   setbuf (stdout, NULL);
 
+//  int operandoA;
+//  int operandoB;
+  int pOpcion;
 
-int pMenu;
-int resultado;
+  do
+    {
 
+      printf ("\nTitulo\n"
+	      "***********\n"
+	      "1.Ingresar 1er operando (A=x)\n"
+	      "2.Ingresar 2do operando (B=y)\n"
+	      "3.Calcular todas las operaciones\n"
+	      "4.Informar resultados\n"
+	      "5.Salir\n\n");
 
+      getInt ("Ingrese opcion: ", "\nOpcion invalida. Por favor ", &pOpcion, 5,
+	      5, 1);
+      switch (pOpcion)
+	{
+	case 1:
+	  system("cls");
+	  printf ("\nOpcion 1 \n");
+	  //Ingrese operador A
+	  break;
+	case 2:
+	  printf ("\nOpcion 2 \n");
+	  //Ingrese operador B
+	  break;
+	case 3:
+	  printf ("\nOpcion 3 \n");
+	  //Funciones de calculo
+	  break;
+	case 4:
+	  printf ("\nOpcion 4 \n");
+	  //Funcion de imprimir
+	  break;
+	default:
+	  break;
+	}
 
-resultado = menu (&pMenu,
-	"Titulo\n"
-	"***********\n",
-	"1.Ingresar 1er operando (A=x)\n"
-	"2.Ingresar 2do operando (B=y)\n"
-	"3.Calcular todas las operaciones\n"
-	"4.Informar resultados\n"
-	"5.Salir\n",
-	5);
-
-if(resultado != -1){
-
-printf("La opcion ingresada es %d", pMenu);
-}else{
-
-    system("cls");
-    printf("Se terminaron los reinentos");
-}
-
-
-
+    }
+  while (pOpcion != 5);
 
 
 
@@ -45,14 +64,8 @@ printf("La opcion ingresada es %d", pMenu);
   return EXIT_SUCCESS;
 }
 
-
-
-
-
-
-
-
-int getInt (char *mensaje, char *mensajeError, int *pResultado, int reintentos,
+int
+getInt (char *mensaje, char *mensajeError, int *pResultado, int reintentos,
 	int maximo, int minimo)
 {
   int retorno = -1;
@@ -82,26 +95,5 @@ int getInt (char *mensaje, char *mensajeError, int *pResultado, int reintentos,
     }
   return retorno;
 
-}
-
-
-int menu (int *opcion,char *titulo, char *opciones,int cantidadOpciones)
-{
-
-  int retorno = -1;
-
-  if (titulo != NULL && opciones != NULL)
-    {
-      printf ("%s\n", titulo);
-      printf ("%s\n", opciones);
-      retorno =  getInt ("Ingrese opcion: ","\nOpcion invalida. Por favor ",
-      			opcion, 10, cantidadOpciones, 1);
-      if (retorno == 0)
-	{
-	  retorno = *opcion;
-	}
-    }
-
-  return retorno;
 }
 
