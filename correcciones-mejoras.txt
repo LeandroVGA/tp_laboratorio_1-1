@@ -1,0 +1,15 @@
+Modificaciones
+Ponerler un contador de reintentos faliidos a la funcion utn_getAceptaRechaza
+
+
+
+
+analizar
+=========
+Función printEmployees --> Imprime el array de empleados de forma encolumnada.
+
+
+FALTA HACER
+===========
+1. Listado de los empleados ordenados alfabéticamente por Apellido y Sector.
+2. Total y promedio de los salarios, y cuántos empleados superan el salario promedio. 

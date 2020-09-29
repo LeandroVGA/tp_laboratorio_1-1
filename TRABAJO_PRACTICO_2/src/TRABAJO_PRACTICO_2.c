@@ -64,10 +64,13 @@ hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 	      break;
 	    case 3:
 	      printf ("\nBAJA\n**********\n");
+	      prepareForDelete (&employeeList,QTY_EMPLOYE);
 	      break;
 	    case 4:
 	      printf ("\nINFORMAR\n**********\n");
+	      sortEmployees(employeeList, QTY_EMPLOYE, 1);
 	      printEmployees(employeeList, QTY_EMPLOYE);
+
 
 	      break;
 	    case 5:

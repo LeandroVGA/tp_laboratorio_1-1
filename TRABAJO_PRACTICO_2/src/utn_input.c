@@ -611,7 +611,6 @@ int utn_getAceptaRechaza (char *mensaje, char *mensajeError, char yes, char no)
 	}
     }
   while (retorno == -1);
-
   return retorno;
 }
 

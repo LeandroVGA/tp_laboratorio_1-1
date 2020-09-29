@@ -89,10 +89,8 @@ int utn_searchFree (Employee *list, int len)
 	    }
 	}
     }
-
   return retorno;
 }
-
 
 
 int isEmpty(Employee* list, int limit, int index)
@@ -107,7 +105,6 @@ int isEmpty(Employee* list, int limit, int index)
     }
   return retorno;
 }
-
 
 
 static int addEmployee(Employee* list, int len, int id, char* name,char* lastName,float salary,int sector)
@@ -147,7 +144,6 @@ int idIncremental(void)
 
 int chargeEmployee (Employee *list, int len)
 {
-
   Employee auxEmployee;
 
   if (list != NULL && len > 0)
@@ -238,8 +234,8 @@ int printForId  (Employee *list, int len, int id)
   		}
   		retorno = 0;
   	}
-  	return retorno;
-  }
+ return retorno;
+}
 
 
 
@@ -262,7 +258,7 @@ int arrayToBuffer(Employee *list,Employee *listBuffer, int len, int id)
     		}
     		retorno = 0;
     	}
-    	return retorno;
+return retorno;
 }
 
 
@@ -294,7 +290,6 @@ int updateEmployee (Employee *list, int len)
   int retorno = -1;
   int opcion;
   Employee auxEmployee;
-int i;
 
 
 
@@ -406,18 +401,146 @@ int i;
 	    {
 	      return EXIT_SUCCESS;
 	    }
-
-
-
-
-	}
+	}//FINAL DEL IF findEmployeeById
       else
 	{
 	  printf ("\nEl ID NO existe\n");
 	}
+    }//FINAL DEL IF VALIDACION DE NULL PRINCIPAL
+  return retorno;
+}
+
+
+int removeEmployee(Employee* list, int len, int id)
+{
+  int i;
+  int retorno;
+
+  if (list != NULL && len > 0 && id > 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (list[i].id == id)
+	    {
+	      list[i].isEmpty = TRUE;
+	      retorno = 0;
+	    }
+	}
+    }
+ return retorno;
+}
+
+
+int prepareForDelete (Employee *list, int len)
+{
+  int retorno = -1;
+  int bufferID;
+
+  if (list != NULL && len > 0)
+    {
+      utn_getNumero ("\nIngrese ID del empleado: ", "\nError al ingresar. ", &bufferID, 1, QTY_EMPLOYE, 5);
+      if (findEmployeeById (list, len, bufferID) != -1)
+	{
+	  printForId (list, len, bufferID);
+	  retorno = utn_getAceptaRechaza ("\nAcepta eliminar empleado? s/n: ", "ERROR al ingresar opcion. \n", 's','n');
+	  if (retorno == 1)
+	    {
+	      removeEmployee (list, len, bufferID);
+	      retorno = 1;
+	    }
+	}
     }
   return retorno;
 }
+
+
+/*
+int sortEmployees(Employee* list, int len, int order)
+{
+  int flagSwap;
+  int i;
+  int contador = 0;
+  int retorno = -1;
+  Employee buffer;
+  int nuevoLimite;
+
+  if (list != NULL && len >= 0)
+    {
+      nuevoLimite = len - 1;
+      do
+	{
+	  flagSwap = 0;
+	  for (i = 0; i < nuevoLimite; i++)//for(i=0; i<tam-1; i++)
+	    {
+			  contador++;
+			//  if (miArray[i] < miArray[i + 1])
+			 if(strcmp(list[i].name,list[i+1].name)==order)
+			{
+			  flagSwap = 1;
+			  buffer = list[i];
+			  list[i] = list[i + 1];
+			  list[i + 1] = buffer;
+			}
+	    }
+	  nuevoLimite--;
+	}
+      while (flagSwap);
+      retorno = contador;
+    }
+  return retorno;
+}
+*/
+
+int sortEmployees(Employee* list, int len, int order)
+{
+  int flagSwap;
+  int i;
+  int contador = 0;
+  int retorno = -1;
+  Employee buffer;
+  int nuevoLimite;
+
+  if (list != NULL && len >= 0)
+    {
+      nuevoLimite = len - 1;
+      do
+	{
+	  flagSwap = 0;
+	  for (i = 0; i < nuevoLimite; i++)//for(i=0; i<tam-1; i++)
+	    {
+			  contador++;
+			//  if (miArray[i] < miArray[i + 1])
+			 if(strcmp(list[i].name,list[i+1].name)>order)
+			{
+			  flagSwap = 1;
+			  buffer = list[i];
+			  list[i] = list[i + 1];
+			  list[i + 1] = buffer;
+			}
+			else
+			{
+				 if(strcmp(list[i].name,list[i+1].name)==0)
+				 {
+					 if(list[i].sector>list[i+1].sector)
+			{
+			  flagSwap = 1;
+			  buffer = list[i];
+			  list[i] = list[i + 1];
+			  list[i + 1] = buffer;
+			}
+
+				 }
+			}
+	    }
+	  nuevoLimite--;
+	}
+      while (flagSwap);
+      retorno = contador;
+    }
+  return retorno;
+}
+
+
 
 
 

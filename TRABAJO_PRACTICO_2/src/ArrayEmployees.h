@@ -39,6 +39,9 @@ int  bufferToArray (Employee *list, Employee *auxEmployee, int len, int id);
 int printForId  (Employee *list, int len, int id);
 int arrayToBuffer(Employee *list,Employee *listBuffer, int len, int id);
 void printForId2  (Employee  auxEmployee);
+int prepareForDelete (Employee *list, int len);
+int removeEmployee(Employee* list, int len, int id);
+int sortEmployees(Employee* list, int len, int order);
 /*
 int alumno_alta(Alumno arrayAlumnos[],int limite,int indice);
 int alumno_imprimir(Alumno* pArrayAlumnos, int limite);
