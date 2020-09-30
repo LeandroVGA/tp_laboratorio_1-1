@@ -1,19 +1,19 @@
 /*
- * utn_input.c
- *
- *  Created on: 23 sep. 2020
- *      Author: nico
+ ============================================================================
+ Name        : TP2.c
+ Author      : Nicolas Letticugna - 1H
+ ============================================================================
  */
 /*Prototipo con resumen rapido
-static int utn_getInt(int* pResultado); //utilizada en utn_getNumero
-static int utn_verificadorDeNumeros(char* cadena,int limite);//utilizada en utn_getInt
-static int utn_myGets(char* cadena,int longitud);//utilizada en utn_getInt, utn_getFloat y utn_getString
-static int utn_getFloat(float* pFloat);// utilizada en utn_getNumeroFloat
-static int utn_esFlotante(char* array,int limite); // utilizada en utn_getFloat
-static int utn_getString(char* pResultado,int longitud); //utilizada en utn_getCadena
-static int utn_esSoloLetras(char* pResultado,int limite); //utilizada en utn_getString
-static int utn_esAlfaNumerica(char* pResultado);
-static int utn_esTelefono(char str[]);
+ int utn_getInt(int* pResultado); //utilizada en utn_getNumero
+ int utn_verificadorDeNumeros(char* cadena,int limite);//utilizada en utn_getInt
+ int utn_myGets(char* cadena,int longitud);//utilizada en utn_getInt, utn_getFloat y utn_getString
+ int utn_getFloat(float* pFloat);// utilizada en utn_getNumeroFloat
+ int utn_esFlotante(char* array,int limite); // utilizada en utn_getFloat
+ int utn_getString(char* pResultado,int longitud); //utilizada en utn_getCadena
+ int utn_esSoloLetras(char* pResultado,int limite); //utilizada en utn_getString
+ int utn_esAlfaNumerica(char* pResultado);
+ int utn_esTelefono(char str[]);
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,7 +77,7 @@ int utn_getNumero(char* mensaje,char* mensajeError,int* pResultado,int minimo,in
 * Retorno: 1 (verdadero) si la cadena es numerica , 0 (falso) si no y -1 en caso de ERROR de parametro
 *
 */
-static int utn_verificadorDeNumeros (char *pResultado, int longitud)
+ int utn_verificadorDeNumeros (char *pResultado, int longitud)
 {
   int retorno;
   int i = 0;
@@ -111,7 +111,7 @@ static int utn_verificadorDeNumeros (char *pResultado, int longitud)
  * Retorno: devuelve un 1 si esta todoOK. Devuelve 0 si hubo un error.
  *
  */
-static int utn_getInt(int* pResultado)
+ int utn_getInt(int* pResultado)
 {
 	int retorno = 0;
 	char buffer[64];
@@ -212,7 +212,7 @@ int utn_getNumeroFloat(float* pResultado,char* mensaje,char* mensajeError,float 
  * Retorno: devuelve un 1 si esta todoOK. Devuelve 0 si hubo un error.
  *
  */
-static int utn_getFloat(float* pFloat)
+ int utn_getFloat(float* pFloat)
 {
 	int retorno = -1;
 	char bufferFloat[64];
@@ -237,7 +237,7 @@ static int utn_getFloat(float* pFloat)
  * Retorno: 1 (verdadero) si la cadena es flotante , 0 (falso) si no y -1 en caso de ERROR de parametro
  *
  */
-static int utn_esFlotante(char* array,int limite)
+ int utn_esFlotante(char* array,int limite)
 {
   int retorno = 0;
   int i = 0;
@@ -276,7 +276,7 @@ static int utn_esFlotante(char* array,int limite)
  * Retorno: devuelve un 1 si esta todoOK. Devuelve 0 si hubo un error.
  *
  */
-static int utn_esSoloLetras(char* pResultado,int limite)
+ int utn_esSoloLetras(char* pResultado,int limite)
 {
 	int retorno = 0;
 	int i= 0;
@@ -305,7 +305,7 @@ static int utn_esSoloLetras(char* pResultado,int limite)
 		i++;
 	    }while(i <= limite && pResultado[i] != '\0');
 	 }
-	/*printf("\n LO QUE DEVUELVE EL [contadorIteracion] DE utn_esSoloLetras: %d\n",contadorEstatico());
+	/*printf("\n LO QUE DEVUELVE EL [contadorIteracion] DE utn_esSoloLetras: %d\n",contadorEo());
 	printf("\n LO QUE DEVUELVE EL [CONTADOR] DE utn_esSoloLetras: %d\n",contador);
 	printf("\n LO QUE DEVUELVE EL [RETORNO] DE utn_esSoloLetras: %d\n",retorno);*/
 
@@ -320,7 +320,7 @@ static int utn_esSoloLetras(char* pResultado,int limite)
  * Retorno: devuelve un 1 si esta todoOK. Devuelve 0 si hubo un error.
  *
  */
-static int utn_getString(char* pResultado,int longitud)
+ int utn_getString(char* pResultado,int longitud)
 {
   int retorno = 0;
   char buffAux[1000];
@@ -616,9 +616,9 @@ int utn_getAceptaRechaza (char *mensaje, char *mensajeError, char yes, char no)
 
 
 
-int contadorEstatico(void)
+int contadorEo(void)
 {
-    static int id = 0;
+     int id = 0;
     id++;
     return id;
 }

@@ -1,8 +1,8 @@
 /*
- * ArrayEmployees.c
- *
- *  Created on: 25 sep. 2020
- *      Author: nico
+ ============================================================================
+ Name        : TP2.c
+ Author      : Nicolas Letticugna - 1H
+ ============================================================================
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +33,7 @@ int initEmployees(Employee list[], int len)
 }
 
 
-
+//
 
 int printEmployees(Employee* list, int length)
 {
@@ -44,8 +44,8 @@ int printEmployees(Employee* list, int length)
 		{
 			if(list[i].isEmpty == FALSE)
 			{
-				printf("%-6d %-6d %-12s %-13s %-12.2f %d \n"
-				    ,list[i].isEmpty
+				printf(" %-6d %-12s %-13s %-12.2f %d \n"
+				 //   ,list[i].isEmpty
 				    ,list[i].id
 				    ,list[i].name
 				    ,list[i].lastName
@@ -61,7 +61,7 @@ int printEmployees(Employee* list, int length)
 
 void headerEmployee(void)
 {
-    printf("%*s%*s%*s%*s%*s",
+    printf("\n%*s%*s%*s%*s%*s",
 	   -7, " ID",
 	   -13," NOMBRE",
 	   -14," APELLIDO",
@@ -95,7 +95,8 @@ int utn_searchFree (Employee *list, int len)
 int isEmpty(Employee* list, int limit, int index)
 {
   int retorno = FALSE;
-  if (list != NULL && list > 0 && index < list)
+//  if (list != NULL && list > 0 && index < list)
+    if (list != NULL && list > 0)
     {
       if (list[index].isEmpty == TRUE)
 	{
@@ -106,7 +107,7 @@ int isEmpty(Employee* list, int limit, int index)
 }
 
 
-static int addEmployee(Employee* list, int len, int id, char* name,char* lastName,float salary,int sector)
+int addEmployee(Employee* list, int len, int id, char* name,char* lastName,float salary,int sector)
 {
   int i;
 
@@ -147,11 +148,11 @@ int chargeEmployee (Employee *list, int len)
 
   if (list != NULL && len > 0)
     {
-      if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", &auxEmployee.name, LONG_NAME_EMPLOYE, 5) != 0 && &auxEmployee.name <= len )
+      if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", auxEmployee.name, LONG_NAME_EMPLOYE, 5) != 0)
 	{
 	  return -1;
 	}
-     if (utn_getNombre ("Ingrese apellido del empleado: ", "\nError al ingresar.\n", &auxEmployee.lastName, LONG_NAME_EMPLOYE, 5) != 0)
+     if (utn_getNombre ("Ingrese apellido del empleado: ", "\nError al ingresar.\n", auxEmployee.lastName, LONG_NAME_EMPLOYE, 5) != 0)
 	{
 	  return -1;
 	}
@@ -163,7 +164,6 @@ int chargeEmployee (Employee *list, int len)
 	{
 	  return -1;
 	}
-
       switch (utn_getAceptaRechaza ("\nAcepta el ingreso? s/n: ", "ERROR al ingresar opcion. \n", 's', 'n'))
 	{
 	case -1:
@@ -172,7 +172,13 @@ int chargeEmployee (Employee *list, int len)
 
 	case 1:
 	  auxEmployee.id = idIncremental ();
-	  addEmployee (list, len, auxEmployee.id, auxEmployee.name, auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector);
+	  printf ("\n*****************************************************");
+	  printf ("\n                    ALTA EXITOSA!                  \n");
+	  printf ("*****************************************************\n\n");
+	  if(addEmployee (list, len, auxEmployee.id, auxEmployee.name, auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector)!=0)
+	    {
+	      return -1;
+	    }
 	  return 0;
 	  break;
 
@@ -184,7 +190,6 @@ int chargeEmployee (Employee *list, int len)
 	  break;
 	}
     }
-
   return -1;
 }
 
@@ -222,8 +227,8 @@ int printForId  (Employee *list, int len, int id)
   		{
   			if(list[i].id == id && list[i].isEmpty == FALSE && list[i].sector != FALSE )
   			{
-  				printf("%-6d %-6d %-12s %-13s %-12.2f %d \n"
-  				    ,list[i].isEmpty
+  				printf(" %-6d %-12s %-13s %-12.2f %d \n"
+  				  //  ,list[i].isEmpty
   				    ,list[i].id
   				    ,list[i].name
   				    ,list[i].lastName
@@ -241,18 +246,15 @@ int printForId  (Employee *list, int len, int id)
 
 int arrayToBuffer(Employee *list,Employee *listBuffer, int len, int id)
 {
- // Employee buffer;
   int retorno = -1;
     int i;
     	if(list != NULL && len > 0)
     	{
     	      for( i=0;i<len;i++)
     		{
-    			//if(list[i].id == id && list[i].isEmpty == FALSE && list[i].sector != FALSE)
     			if(list[i].id == id)
     			{
     			*listBuffer=list[i];
-
     			}
     		}
     		retorno = 0;
@@ -290,23 +292,12 @@ int updateEmployee (Employee *list, int len)
   int opcion;
   Employee auxEmployee;
 
-
-
   if (list != NULL && len > 0)
     {
       utn_getNumero ("\nIngrese ID del empleado: ", "\nError al ingresar. ", &bufferID, 1, QTY_EMPLOYE, 5);
-      printf ("\nEl ID seleccionado es: %d\n", bufferID);
       if (findEmployeeById (list, len, bufferID) != -1)
 	{
 	  retorno = 0;
-	/*  for(i=0; i<len; i++)
-	    {
-	      if(list[i].isEmpty==FALSE && list[i].id==bufferID )
-		{
-		  auxEmployee=list[i];
-		}
-	  }
-*/
 	  arrayToBuffer(list, &auxEmployee,  len,  bufferID);
 	  do
 	     {
@@ -323,67 +314,42 @@ int updateEmployee (Employee *list, int len)
 	 	  switch (opcion)
 	 	    {
 	 	    case 1:
-	 	      printf ("\NOMBRE\n******\n");
+	 	      printf ("\nNOMBRE\n******\n");
 
-	 	     if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", &auxEmployee.name, LONG_NAME_EMPLOYE, 5) != 0)
+	 	     if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", auxEmployee.name, LONG_NAME_EMPLOYE, 5) != 0)
 	 	    	{
 	 	    	  return -1;
 	 	    	}
 	 	      break;
 	 	    case 2:
-	 	      printf ("\APELLIDO\n********\n");
-	 	     if (utn_getNombre ("Ingrese apellido del empleado: ", "\nError al ingresar.\n", &auxEmployee.lastName, LONG_NAME_EMPLOYE, 5) != 0)
+	 	      printf ("\nAPELLIDO\n********\n");
+	 	     if (utn_getNombre ("Ingrese apellido del empleado: ", "\nError al ingresar.\n", auxEmployee.lastName, LONG_NAME_EMPLOYE, 5) != 0)
 	 	   	{
 	 	   	  return -1;
 	 	   	}
 	 	      break;
 	 	    case 3:
-	 	      printf ("\SALARIO\n**********\n");
+	 	      printf ("\nSALARIO\n**********\n");
 	 	     if (utn_getNumeroFloat (&auxEmployee.salary, "Ingrese salario del empleado: ", "\nError al ingresar. Por favor ", 1, 9999999, 5)!= 0)
 	 	     	{
 	 	     	  return -1;
 	 	     	}
 	 	      break;
 	 	    case 4:
-	 	      printf ("\SECTOR\n**********\n");
+	 	      printf ("\nSECTOR\n**********\n");
 	 	     if (utn_getNumero ("Ingrese el sector: ", "\nError al ingresar. Por favor ", &auxEmployee.sector, 1, 100, 5)!= 0)
 	 	   	{
 	 	   	  return -1;
 	 	   	}
 	 	      break;
 	 	   case 5:
-	 		  printf ("\Grabar cambios\n**********\n");
-	 		 switch (utn_getAceptaRechaza ("\nGrabar cambios? s/n: ", "ERROR al ingresar opcion. \n", 's', 'n'))
-	 			{
-	 			case -1:
-	 			  return -1;
-	 			  break;
-
-	 			case 1:
-	 			  //  addEmployee (list, len, auxEmployee.id, auxEmployee.name, auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector);
-	 			 bufferToArray (list, &auxEmployee,  len, bufferID);
-	 			/* for(i=0; i<len; i++)
-	 				    {
-	 				      if(auxEmployee.id==bufferID && list[i].id==bufferID)
-	 					{
-	 					 list[i]= auxEmployee;
-	 					}
-	 				  }*/
-	 			  return 0;
-	 			  break;
-
-	 			case 0:
-	 			  return 0;
-	 			  break;
-
-	 			default:
-	 			  break;
-	 			}
-	 	      break;
-	 	    case 6:
-	 	      printf ("\nSALIR\n**********\n");
-	 	      break;
-	 	    default:
+	 		 if(utn_getAceptaRechaza ("\nGrabar cambios? s/n: ", "ERROR al ingresar opcion. \n", 's', 'n')==1)
+	 		   {
+	 		    bufferToArray (list, &auxEmployee,  len, bufferID);
+	 		    printf ("\n*************************************\n");
+	 		    printf ("\nLOS CAMBIOS SE GRABARON EXITOSAMENTE!\n");
+	 		    printf ("\n*************************************\n\n");
+	 		   }
 	 	      break;
 	 	    }
 	 	}
@@ -446,6 +412,9 @@ int prepareForDelete (Employee *list, int len)
 	    {
 	      removeEmployee (list, len, bufferID);
 	      retorno = 1;
+	      printf ("\n*****************************************************");
+	      printf ("\n             ELIMINACION EXITOSA!\n");
+	      printf ("*****************************************************\n\n");
 	    }
 	}
     }
@@ -469,8 +438,8 @@ int sortEmployees(Employee* list, int len, int order)
       do
 	{
 	  flagSwap = 0;
-	  ///////////////////////////////////////////////////////////
-	  for (i = 0; i < nuevoLimite; i++) //for(i=0; i<tam-1; i++)
+
+	  for (i = 0; i < nuevoLimite; i++)
 	    {
 	      contador++;
 	      if ((order == 0 && strcmp (list[i].lastName, list[i + 1].lastName) < 0)||
@@ -484,8 +453,7 @@ int sortEmployees(Employee* list, int len, int order)
 		  list[i] = list[i + 1];
 		  list[i + 1] = buffer;
 		}
-
-	    }///////////////////////////////////////////////////////////
+	    }
 	  nuevoLimite--;
 	}
       while (flagSwap);

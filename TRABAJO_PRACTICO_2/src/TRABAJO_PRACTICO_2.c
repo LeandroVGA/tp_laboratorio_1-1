@@ -2,20 +2,15 @@
  ============================================================================
  Name        : TP2.c
  Author      : Nicolas Letticugna - 1H
- Version     :
- Copyright   : 
- Description : Hello World in C, Ansi-style
  ============================================================================
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include <windows.h>
 #include "utn_input.h"
 #include "ArrayEmployees.h"
 #include "hardcodDataEmploye.h"
-
 
 
 int main(void) {
@@ -24,7 +19,7 @@ int opcion;
 
 Employee employeeList[QTY_EMPLOYE];
 initEmployees(employeeList, QTY_EMPLOYE);
-//hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
+hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 
   do
     {
@@ -48,7 +43,9 @@ initEmployees(employeeList, QTY_EMPLOYE);
 		{
 		  if (utn_searchFree (employeeList, QTY_EMPLOYE) == TRUE)
 		    {
-		      printf ("\nALTA\n**********\n");
+		      printf ("\n*****************************************************");
+		      printf ("\n******************      ALTA    *********************\n");
+		      printf ("*****************************************************\n");
 		      if (chargeEmployee (employeeList, QTY_EMPLOYE) != 0)
 			{
 			  printf ("\n*****************************\n");
@@ -68,8 +65,15 @@ initEmployees(employeeList, QTY_EMPLOYE);
 	    case 2:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
 		{
-	      printf ("\MODIFICACION\n**********\n");
-	      updateEmployee (&employeeList, QTY_EMPLOYE);
+		  printf ("\n*****************************************************");
+		  printf ("\n***************    MODIFICAR    *********************\n");
+		 printf ("*****************************************************\n");
+		  if (updateEmployee (employeeList, QTY_EMPLOYE) != 0) ///////////------------------------------------
+		    {
+		      printf ("\n******\n");
+		      printf ("\nERROR!\n");
+		      printf ("\n******\n");
+		    }
 		}
 	      else
 		{
@@ -83,8 +87,15 @@ initEmployees(employeeList, QTY_EMPLOYE);
 	    case 3:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
 	      	{
-	      printf ("\nBAJA\n**********\n");
-	      prepareForDelete (&employeeList,QTY_EMPLOYE);
+		  printf ("\n*****************************************************");
+		  printf ("\n******************      BAJA    *********************\n");
+		  printf ("*****************************************************\n");
+	      if(prepareForDelete (employeeList,QTY_EMPLOYE)==-1)///////////------------------------------------
+		{
+		  printf ("\n******\n");
+		  printf ("\nERROR!\n");
+		  printf ("\n******\n");
+		}
 	      	}
 	      else
 	      		{
@@ -96,8 +107,15 @@ initEmployees(employeeList, QTY_EMPLOYE);
 	    case 4:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
 	        {
-	      printf ("\nINFORMAR\n**********\n");
-	      sortEmployees(employeeList, QTY_EMPLOYE, 1);
+		 printf ("\n*****************************************************");
+		 printf ("\n*****************    INFORMAR    ********************\n");
+		 printf ("*****************************************************\n");
+	      if(sortEmployees(employeeList, QTY_EMPLOYE, 1) == -1)
+		{
+		  printf ("\n******\n");
+		  printf ("\nERROR!\n");
+		  printf ("\n******\n");
+		}
 	      headerEmployee();
 	      printEmployees(employeeList, QTY_EMPLOYE);
 	      printf ("\n*****************************************************\n");

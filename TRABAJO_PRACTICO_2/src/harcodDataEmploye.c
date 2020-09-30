@@ -1,8 +1,8 @@
 /*
- * harcodDataEmploye.c
- *
- *  Created on: 26 sep. 2020
- *      Author: nico
+ ============================================================================
+ Name        : TP2.c
+ Author      : Nicolas Letticugna - 1H
+ ============================================================================
  */
 #include <stdio.h>
 #include <stdlib.h>
