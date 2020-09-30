@@ -68,8 +68,17 @@ hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 	      break;
 	    case 4:
 	      printf ("\nINFORMAR\n**********\n");
-	      sortEmployees(employeeList, QTY_EMPLOYE, 1);
+	      sortEmployees(employeeList, QTY_EMPLOYE, 0);
+	      headerEmployee();
 	      printEmployees(employeeList, QTY_EMPLOYE);
+	      printf ("\n*****************************************************\n");
+	      printf ("TOTAL DE LOS SALARIOS: ");
+	      printf ("%.2f",sumaTotal(employeeList, QTY_EMPLOYE));
+	      printf ("\nPROMEDIO DE LOS SALARIOS: ");
+	      printf ("%.2f",promedio(employeeList, QTY_EMPLOYE));
+      	      printf ("\nCANTIDAD DE EMPLEADOS QUE SUPERAN EL PROMEDIO: ");
+	      printf ("%d",cantidadSuperiorAlPronedio(employeeList, QTY_EMPLOYE));
+	      printf ("\n*****************************************************\n");
 
 
 	      break;

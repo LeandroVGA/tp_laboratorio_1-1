@@ -42,6 +42,9 @@ void printForId2  (Employee  auxEmployee);
 int prepareForDelete (Employee *list, int len);
 int removeEmployee(Employee* list, int len, int id);
 int sortEmployees(Employee* list, int len, int order);
+float sumaTotal(Employee* list, int len);
+float promedio(Employee* list, int len);
+int cantidadSuperiorAlPronedio(Employee* list, int len);
 /*
 int alumno_alta(Alumno arrayAlumnos[],int limite,int indice);
 int alumno_imprimir(Alumno* pArrayAlumnos, int limite);

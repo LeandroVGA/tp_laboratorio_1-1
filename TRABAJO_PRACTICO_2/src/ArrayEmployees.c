@@ -40,7 +40,6 @@ int printEmployees(Employee* list, int length)
 	int retorno = -1;
 	if(list != NULL && length > 0)
 	{
-	    headerEmployee();
 		for(int i=0;i<length;i++)
 		{
 			if(list[i].isEmpty == FALSE)
@@ -506,32 +505,32 @@ int sortEmployees(Employee* list, int len, int order)
       do
 	{
 	  flagSwap = 0;
-	  for (i = 0; i < nuevoLimite; i++)//for(i=0; i<tam-1; i++)
+	  ///////////////////////////////////////////////////////////
+	  for (i = 0; i < nuevoLimite; i++) //for(i=0; i<tam-1; i++)
 	    {
-			  contador++;
-			//  if (miArray[i] < miArray[i + 1])
-			 if(strcmp(list[i].name,list[i+1].name)>order)
+	      contador++;
+	      //  if (miArray[i] < miArray[i + 1])
+	      if (strcmp (list[i].lastName, list[i + 1].lastName) < order)
+		{
+		  flagSwap = 1;
+		  buffer = list[i];
+		  list[i] = list[i + 1];
+		  list[i + 1] = buffer;
+		}
+	      else
+		{
+		  if (strcmp (list[i].lastName, list[i + 1].lastName) == 0)
+		    {
+		      if (list[i].sector > list[i + 1].sector)
 			{
 			  flagSwap = 1;
 			  buffer = list[i];
 			  list[i] = list[i + 1];
 			  list[i + 1] = buffer;
 			}
-			else
-			{
-				 if(strcmp(list[i].name,list[i+1].name)==0)
-				 {
-					 if(list[i].sector>list[i+1].sector)
-			{
-			  flagSwap = 1;
-			  buffer = list[i];
-			  list[i] = list[i + 1];
-			  list[i + 1] = buffer;
-			}
-
-				 }
-			}
-	    }
+		    }
+		}
+	    }///////////////////////////////////////////////////////////
 	  nuevoLimite--;
 	}
       while (flagSwap);
@@ -543,8 +542,71 @@ int sortEmployees(Employee* list, int len, int order)
 
 
 
+float sumaTotal (Employee *list, int len)
+{
+  int i;
+  float retorno = -1;
+  float aux = 0;
+
+  if (list != NULL && len > 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (list[i].isEmpty == FALSE && list[i].salary != FALSE)
+	    {
+	      aux = aux + list[i].salary;
+	    }
+	}
+      retorno = aux;
+    }
+  return retorno;
+}
 
 
+
+float promedio(Employee* list, int len)
+{
+  int i;
+  float retorno = -1;
+  int contador = 0;
+
+  if (list != NULL && len > 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (list[i].isEmpty == FALSE && list[i].salary != FALSE)
+	    {
+	      contador++;
+	    }
+	}
+      retorno = sumaTotal (list, len) / contador;
+    }
+  return retorno;
+}
+
+
+int cantidadSuperiorAlPronedio(Employee* list, int len)
+{
+
+  int i;
+  int retorno = -1;
+  int contador = 0;
+  float aux;
+
+  aux = promedio (list, len);
+  if (list != NULL && len > 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (list[i].isEmpty == FALSE && list[i].salary > aux)
+	    {
+	      contador++;
+	    }
+	}
+      retorno = contador;
+    }
+  return retorno;
+}
 
 
 
