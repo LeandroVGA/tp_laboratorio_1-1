@@ -11,7 +11,7 @@
 #define TRUE 1
 #define FALSE 0
 #define LONG_NAME_EMPLOYE 51
-#define QTY_EMPLOYE 1000
+#define QTY_EMPLOYE 5
 #define MAX_EMPLOYE 100
 
 struct
@@ -45,6 +45,7 @@ int sortEmployees(Employee* list, int len, int order);
 float sumaTotal(Employee* list, int len);
 float promedio(Employee* list, int len);
 int cantidadSuperiorAlPronedio(Employee* list, int len);
+int flagLimite(Employee* list, int len);
 /*
 int alumno_alta(Alumno arrayAlumnos[],int limite,int indice);
 int alumno_imprimir(Alumno* pArrayAlumnos, int limite);

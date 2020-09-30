@@ -147,7 +147,7 @@ int chargeEmployee (Employee *list, int len)
 
   if (list != NULL && len > 0)
     {
-      if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", &auxEmployee.name, LONG_NAME_EMPLOYE, 5) != 0)
+      if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", &auxEmployee.name, LONG_NAME_EMPLOYE, 5) != 0 && &auxEmployee.name <= len )
 	{
 	  return -1;
 	}
@@ -453,42 +453,6 @@ int prepareForDelete (Employee *list, int len)
 }
 
 
-/*
-int sortEmployees(Employee* list, int len, int order)
-{
-  int flagSwap;
-  int i;
-  int contador = 0;
-  int retorno = -1;
-  Employee buffer;
-  int nuevoLimite;
-
-  if (list != NULL && len >= 0)
-    {
-      nuevoLimite = len - 1;
-      do
-	{
-	  flagSwap = 0;
-	  for (i = 0; i < nuevoLimite; i++)//for(i=0; i<tam-1; i++)
-	    {
-			  contador++;
-			//  if (miArray[i] < miArray[i + 1])
-			 if(strcmp(list[i].name,list[i+1].name)==order)
-			{
-			  flagSwap = 1;
-			  buffer = list[i];
-			  list[i] = list[i + 1];
-			  list[i + 1] = buffer;
-			}
-	    }
-	  nuevoLimite--;
-	}
-      while (flagSwap);
-      retorno = contador;
-    }
-  return retorno;
-}
-*/
 
 int sortEmployees(Employee* list, int len, int order)
 {
@@ -509,27 +473,18 @@ int sortEmployees(Employee* list, int len, int order)
 	  for (i = 0; i < nuevoLimite; i++) //for(i=0; i<tam-1; i++)
 	    {
 	      contador++;
-	      //  if (miArray[i] < miArray[i + 1])
-	      if (strcmp (list[i].lastName, list[i + 1].lastName) < order)
+	      if ((order == 0 && strcmp (list[i].lastName, list[i + 1].lastName) < 0)||
+		  (order == 1 && strcmp (list[i].lastName, list[i + 1].lastName) > 0)||
+		  (0==strcmp (list[i].lastName, list[i + 1].lastName) &&
+		      (((list[i].sector > list[i + 1].sector)&&(order == 1))
+			  ||((list[i].sector < list[i + 1].sector) &&(order == 0)))))
 		{
 		  flagSwap = 1;
 		  buffer = list[i];
 		  list[i] = list[i + 1];
 		  list[i + 1] = buffer;
 		}
-	      else
-		{
-		  if (strcmp (list[i].lastName, list[i + 1].lastName) == 0)
-		    {
-		      if (list[i].sector > list[i + 1].sector)
-			{
-			  flagSwap = 1;
-			  buffer = list[i];
-			  list[i] = list[i + 1];
-			  list[i + 1] = buffer;
-			}
-		    }
-		}
+
 	    }///////////////////////////////////////////////////////////
 	  nuevoLimite--;
 	}
@@ -538,7 +493,6 @@ int sortEmployees(Employee* list, int len, int order)
     }
   return retorno;
 }
-
 
 
 
@@ -608,6 +562,31 @@ int cantidadSuperiorAlPronedio(Employee* list, int len)
   return retorno;
 }
 
+
+
+int flagLimite(Employee* list, int len)
+{
+  int retorno = -1;
+  int i;
+  int contador = 0;
+
+  for (i = 0; i < len; i++)
+    {
+      if (i <= len && list[i].isEmpty == FALSE)
+	{
+	  contador++;
+	}
+    }
+  if (contador == 0)
+    {
+      retorno = 0;
+    }
+  else if (contador > 0 && contador != len)
+    {
+      retorno = contador;
+    }
+  return retorno;
+}
 
 
 
