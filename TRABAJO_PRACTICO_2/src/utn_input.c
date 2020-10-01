@@ -573,9 +573,16 @@ int utn_getNombre (char *mensaje, char *mensajeError, char *pNombre, int longitu
   return retorno;
 }
 
+
+
 //=====================================================================================
 /*
-
+ * utn_getAceptaRechaza : pide al usuario rechazar o aceptar
+ * mensaje : El mensaje que imprime para pedir aceptar o rechazar.
+ * mensajeError: El mensaje que imprime si el inngreso es invalido.
+ * yes: parametro de entrada
+ * no: parametro de entrada
+ * Retorno: devuelve 1 o 0 si esta todoOK. Devuelve -1 si hubo un error.
  *
  */
 
@@ -615,10 +622,40 @@ int utn_getAceptaRechaza (char *mensaje, char *mensajeError, char yes, char no)
 }
 
 
-
-int contadorEo(void)
+//=====================================================================================
+/*
+ * headerEmployee : Imprimie en una linea
+ * -
+ *
+ * Retorno: -
+ *
+ */
+void headerEmployee(void)
 {
-     int id = 0;
+    printf("\n%*s%*s%*s%*s%*s",
+	   -7, " ID",
+	   -13," NOMBRE",
+	   -14," APELLIDO",
+	   -12," SALARIO",
+	    0," SECTOR"
+	   "\n-----------------------------------------------------\n");
+}
+
+
+
+
+
+//=====================================================================================
+/*
+ * idIncremental : Incrementa la variable estatica
+ * -
+ *
+ * Retorno: -
+ *
+ */
+int idIncremental(void)
+{
+    static int id = 0;
     id++;
     return id;
 }

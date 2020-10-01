@@ -13,6 +13,16 @@
 #include "utn_input.h"
 
 
+
+
+/** \brief To indicate that all position in the array are empty,
+ * this function put the flag (isEmpty) in TRUE in all
+ * position of the array
+ * \param list Employee* Pointer to array of employees
+ * \param len int Array length
+ * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+ *
+ */
 int initEmployees(Employee list[], int len)
 {
 	int retorno = -1;
@@ -33,80 +43,19 @@ int initEmployees(Employee list[], int len)
 }
 
 
-//
 
-int printEmployees(Employee* list, int length)
-{
-	int retorno = -1;
-	if(list != NULL && length > 0)
-	{
-		for(int i=0;i<length;i++)
-		{
-			if(list[i].isEmpty == FALSE)
-			{
-				printf(" %-6d %-12s %-13s %-12.2f %d \n"
-				 //   ,list[i].isEmpty
-				    ,list[i].id
-				    ,list[i].name
-				    ,list[i].lastName
-				    ,list[i].salary
-				    ,list[i].sector);
-			}
-		}
-		retorno = 0;
-	}
-	return retorno;
-}
-
-
-void headerEmployee(void)
-{
-    printf("\n%*s%*s%*s%*s%*s",
-	   -7, " ID",
-	   -13," NOMBRE",
-	   -14," APELLIDO",
-	   -12," SALARIO",
-	    0," SECTOR"
-	   "\n-----------------------------------------------------\n");
-}
-
-
-
-int utn_searchFree (Employee *list, int len)
-{
-  int i;
-  int retorno = FALSE;
-
-  if (list != NULL && list > 0)
-    {
-      for (i = 0; i < len; i++)
-	{
-	  if (isEmpty (list, len, i) == 1)
-	    {
-	      retorno = TRUE;
-	      break;
-	    }
-	}
-    }
-  return retorno;
-}
-
-
-int isEmpty(Employee* list, int limit, int index)
-{
-  int retorno = FALSE;
-//  if (list != NULL && list > 0 && index < list)
-    if (list != NULL && list > 0)
-    {
-      if (list[index].isEmpty == TRUE)
-	{
-	  retorno = TRUE;
-	}
-    }
-  return retorno;
-}
-
-
+/** \brief add in a existing list of employees the values received as parameters
+ * in the first empty position
+ * \param list employee*
+ * \param len int
+ * \param id int
+ * \param name[] char
+ * \param lastName[] char
+ * \param salary float
+ * \param sector int
+ * \return int Return (-1) if Error [Invalid length or NULL pointer or without
+free space] - (0) if Ok
+*/
 int addEmployee(Employee* list, int len, int id, char* name,char* lastName,float salary,int sector)
 {
   int i;
@@ -131,17 +80,213 @@ int addEmployee(Employee* list, int len, int id, char* name,char* lastName,float
 }
 
 
-int idIncremental(void)
+/** \brief find an Employee by Id en returns the index position in array.
+ *
+ * \param list Employee*
+ * \param len int
+ * \param id int
+ * \return Return employee index position or (-1) if [Invalid length or NULL
+pointer received or employee not found]
+ *
+ */
+int findEmployeeById (Employee *list, int len, int id)
 {
-    static int id = 0;
-    id++;
-    return id;
+  int i;
+  int retorno = -1;
+
+  if (list != NULL && len > 0 && id != 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (list[i].id == id)
+	    {
+	      retorno = id;
+	      break;
+	    }
+	}
+    }
+return retorno;
+}
+
+
+/** \brief Remove a Employee by Id (put isEmpty Flag in 1)
+ *
+ * \param list Employee*
+ * \param len int
+ * \param id int
+ * \return int Return (-1) if Error [Invalid length or NULL pointer or if can't
+find a employee] - (0) if Ok
+ *
+ */
+int removeEmployee(Employee* list, int len, int id)
+{
+  int i;
+  int retorno;
+
+  if (list != NULL && len > 0 && id > 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (list[i].id == id)
+	    {
+	      list[i].isEmpty = TRUE;
+	      retorno = 0;
+	    }
+	}
+    }
+ return retorno;
+}
+
+
+/** \brief Sort the elements in the array of employees, the argument order
+indicate UP or DOWN order
+ *
+ * \param list Employee*
+ * \param len int
+ * \param order int [1] indicate UP - [0] indicate DOWN
+ * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+ *
+ */
+int sortEmployees(Employee* list, int len, int order)
+{
+  int flagSwap;
+  int i;
+  int contador = 0;
+  int retorno = -1;
+  Employee buffer;
+  int nuevoLimite;
+
+  if (list != NULL && len >= 0)
+    {
+      nuevoLimite = len - 1;
+      do
+	{
+	  flagSwap = 0;
+
+	  for (i = 0; i < nuevoLimite; i++)
+	    {
+	      contador++;
+	      if ((order == 0 && strcmp (list[i].lastName, list[i + 1].lastName) < 0)||
+		  (order == 1 && strcmp (list[i].lastName, list[i + 1].lastName) > 0)||
+		  (0==strcmp (list[i].lastName, list[i + 1].lastName) &&
+		      (((list[i].sector > list[i + 1].sector)&&(order == 1))
+			  ||((list[i].sector < list[i + 1].sector) &&(order == 0)))))
+		{
+		  flagSwap = 1;
+		  buffer = list[i];
+		  list[i] = list[i + 1];
+		  list[i + 1] = buffer;
+		}
+	    }
+	  nuevoLimite--;
+	}
+      while (flagSwap);
+      retorno = contador;
+    }
+  return retorno;
+}
+
+
+
+/** \brief print the content of employees array
+ *
+ * \param list Employee*
+ * \param length int
+ * \return int
+ *
+ */
+int printEmployees(Employee* list, int length)
+{
+	int retorno = -1;
+	if(list != NULL && length > 0)
+	{
+		for(int i=0;i<length;i++)
+		{
+			if(list[i].isEmpty == FALSE)
+			{
+				printf(" %-6d %-12s %-13s %-12.2f %d \n"
+				 //   ,list[i].isEmpty
+				    ,list[i].id
+				    ,list[i].name
+				    ,list[i].lastName
+				    ,list[i].salary
+				    ,list[i].sector);
+			}
+		}
+		retorno = 0;
+	}
+	return retorno;
+}
+
+
+
+/** \brief Buscar espacio libre en el array
+ *
+ * \param list Employee*
+ * \param length int
+ * Usa la funcion isEmpty para obtener
+ * lugar vacio mediante un for que recorre el array
+ * \return 1 si esta ok - 0 si no
+ *
+ */
+int utn_searchFree (Employee *list, int len)
+{
+  int i;
+  int retorno = FALSE;
+
+  if (list != NULL && list > 0)
+    {
+      for (i = 0; i < len; i++)
+	{
+	  if (isEmpty (list, len, i) == 1)
+	    {
+	      retorno = TRUE;
+	      break;
+	    }
+	}
+    }
+  return retorno;
 }
 
 
 
 
 
+/** \brief Buscar espacio bacio en el array
+ *
+ * \param list Employee*
+ * \param length int
+ * \return 1 si esta ok - 0 si no
+ *
+ */
+int isEmpty(Employee* list, int limit, int index)
+{
+  int retorno = FALSE;
+//  if (list != NULL && list > 0 && index < list)
+    if (list != NULL && list > 0)
+    {
+      if (list[index].isEmpty == TRUE)
+	{
+	  retorno = TRUE;
+	}
+    }
+  return retorno;
+}
+
+
+
+/** \brief conjunto  de funcione de entrada de datos por consola
+ *
+ * \param list Employee*
+ * \param length int
+ * usa la funcion utn_getNombre para obtener nombre o apelleido
+ * usa la funcion utn_getNumeroFloat para obtener numero flotante
+ * usa la funcion utn_getNumero para obtener numero entero
+ * usa la funcion idIncremental para obtener id incremental
+ * usa la funcion addEmployee para impactar los datos ingresados al array
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 int chargeEmployee (Employee *list, int len)
 {
   Employee auxEmployee;
@@ -186,27 +331,14 @@ int chargeEmployee (Employee *list, int len)
 
 
 
-
-int findEmployeeById (Employee *list, int len, int id)
-{
-  int i;
-  int retorno = -1;
-
-  if (list != NULL && len > 0 && id != 0)
-    {
-      for (i = 0; i < len; i++)
-	{
-	  if (list[i].id == id)
-	    {
-	      retorno = id;
-	      break;
-	    }
-	}
-
-    }
-return retorno;
-}
-
+/** \brief imprime el array a partir del id
+ *
+ * \param list Employee*
+ * \param length int
+ * \param id int
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 int printForId  (Employee *list, int len, int id)
 {
   int retorno = -1;
@@ -234,7 +366,15 @@ int printForId  (Employee *list, int len, int id)
 
 
 
-
+/** \brief vuelca datos del array a un array auxiliar partiendo del id
+ *
+ * \param list Employee*
+ * \param list Employee* --> array auxiliar
+ * \param length int
+ * \param id int
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 int arrayToBuffer(Employee *list,Employee *listBuffer, int len, int id)
 {
   int retorno = -1;
@@ -254,6 +394,17 @@ return retorno;
 }
 
 
+
+
+/** \brief vuelca datos del array auxiliar a un array  partiendo del id
+ *
+ * \param list Employee*
+ * \param list Employee* --> array auxiliar
+ * \param length int
+ * \param id int
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 int bufferToArray(Employee *list, Employee *listBuffer, int len, int id)
 {
   int i;
@@ -276,6 +427,24 @@ int bufferToArray(Employee *list, Employee *listBuffer, int len, int id)
 
 
 
+/** \brief conjunto  de funcione de entrada de datos por consola
+ *
+ * \param list Employee*
+ * \param length int
+ * usa la funcion utn_getNumero para ingresar id
+ * usa la funcion findEmployeeById para buscar id
+ * usa la funcion arrayToBuffer para volcar datos de un array a un array auxiliar por medio del id
+ * usa la funcion printForId para imprimir el array  por medio del id
+ *  usa la funcion utn_getNumero para obtener opcion
+ * usa la funcion utn_getNombre para obtener nombre o apelleido
+ * usa la funcion utn_getNumeroFloat para obtener numero flotante
+ * usa la funcion utn_getNumero para obtener numero entero
+ * usa la funcion utn_getAceptaRechaza para aceptar o rechazar ingreso de datos
+ * usa la funcion idIncremental para obtener id incremental
+ * usa la funcion bufferToArray para volcar datos de un array auxiliar a un array  por medio del id
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 int updateEmployee (Employee *list, int len)
 {
   int bufferID;
@@ -367,26 +536,21 @@ int updateEmployee (Employee *list, int len)
 }
 
 
-int removeEmployee(Employee* list, int len, int id)
-{
-  int i;
-  int retorno;
-
-  if (list != NULL && len > 0 && id > 0)
-    {
-      for (i = 0; i < len; i++)
-	{
-	  if (list[i].id == id)
-	    {
-	      list[i].isEmpty = TRUE;
-	      retorno = 0;
-	    }
-	}
-    }
- return retorno;
-}
 
 
+/** \brief obtiene array por medio del id y luedo realiza baja logica del mismo
+ *
+ * \param list Employee*
+ * \param length int
+ * \usa la funcion utn_getNumero para obtener numero entero
+ * \usa la funcion findEmployeeById para obtener array partiendo del id
+ * \usa la funcion printForId imprime array partiendo del id
+ * \usa la funcion utn_getAceptaRechaza para aceptar o rechazar ingreso de datos
+ * \usa la funcion removeEmployee para realizar la baja logica
+ * \param id int
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 int prepareForDelete (Employee *list, int len)
 {
   int retorno = -1;
@@ -418,47 +582,13 @@ int prepareForDelete (Employee *list, int len)
 
 
 
-int sortEmployees(Employee* list, int len, int order)
-{
-  int flagSwap;
-  int i;
-  int contador = 0;
-  int retorno = -1;
-  Employee buffer;
-  int nuevoLimite;
-
-  if (list != NULL && len >= 0)
-    {
-      nuevoLimite = len - 1;
-      do
-	{
-	  flagSwap = 0;
-
-	  for (i = 0; i < nuevoLimite; i++)
-	    {
-	      contador++;
-	      if ((order == 0 && strcmp (list[i].lastName, list[i + 1].lastName) < 0)||
-		  (order == 1 && strcmp (list[i].lastName, list[i + 1].lastName) > 0)||
-		  (0==strcmp (list[i].lastName, list[i + 1].lastName) &&
-		      (((list[i].sector > list[i + 1].sector)&&(order == 1))
-			  ||((list[i].sector < list[i + 1].sector) &&(order == 0)))))
-		{
-		  flagSwap = 1;
-		  buffer = list[i];
-		  list[i] = list[i + 1];
-		  list[i + 1] = buffer;
-		}
-	    }
-	  nuevoLimite--;
-	}
-      while (flagSwap);
-      retorno = contador;
-    }
-  return retorno;
-}
-
-
-
+/** \brief obtiene la suma de los valores del array
+ *
+ * \param list Employee*
+ * \param length int
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 float sumaTotal (Employee *list, int len)
 {
   int i;
@@ -480,7 +610,14 @@ float sumaTotal (Employee *list, int len)
 }
 
 
-
+/** \brief obtiene el promedio
+ *
+ * \param list Employee*
+ * \param length int
+ * \usa la funcion sumaTotal para sumar
+ * \return 0 si esta ok - -1 si no
+ *
+ */
 float promedio(Employee* list, int len)
 {
   int i;
@@ -502,7 +639,16 @@ float promedio(Employee* list, int len)
 }
 
 
-int cantidadSuperiorAlPronedio(Employee* list, int len)
+
+/** \brief obtiene la cantidad superior al promedio
+ *
+ * \param list Employee*
+ * \param length int
+ * \usa la funcion promedio para obtener el promedio
+ * \return 0 si esta ok - -1 si no
+ *
+ */
+int cantidadSuperiorAlPromedio(Employee* list, int len)
 {
 
   int i;
@@ -527,6 +673,14 @@ int cantidadSuperiorAlPronedio(Employee* list, int len)
 
 
 
+/** \brief recorre el array y devuelve si esta full o si esta vacio
+ *
+ * \param list Employee*
+ * \param length int
+ * \usa la funcion promedio para obtener el promedio
+ * \return 0 si esta vacio - > 0 si contiene datos- -1 si no
+ *
+ */
 int flagLimite(Employee* list, int len)
 {
   int retorno = -1;

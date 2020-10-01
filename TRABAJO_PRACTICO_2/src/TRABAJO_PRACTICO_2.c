@@ -123,7 +123,7 @@ hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 	      printf ("\nPROMEDIO DE LOS SALARIOS: ");
 	      printf ("%.2f",promedio(employeeList, QTY_EMPLOYE));
       	      printf ("\nCANTIDAD DE EMPLEADOS QUE SUPERAN EL PROMEDIO: ");
-	      printf ("%d",cantidadSuperiorAlPronedio(employeeList, QTY_EMPLOYE));
+	      printf ("%d",cantidadSuperiorAlPromedio(employeeList, QTY_EMPLOYE));
 	      printf ("\n*****************************************************\n");
 	     	}
 	      else

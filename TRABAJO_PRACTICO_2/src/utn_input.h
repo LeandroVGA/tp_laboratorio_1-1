@@ -21,6 +21,7 @@ int utn_esAlfaNumerica(char* pResultado);
 int utn_esTelefono(char str[]);
 int utn_getNombre (char *mensaje, char *mensajeError, char *pNombre, int longitud, int reintentos);
 int utn_getAceptaRechaza (char *mensaje, char *mensajeError, char yes, char no);
-int contadorEstatico(void);
+void headerEmployee(void);
+int idIncremental(void);
 
 #endif /* UTN_INPUT_H_ */
