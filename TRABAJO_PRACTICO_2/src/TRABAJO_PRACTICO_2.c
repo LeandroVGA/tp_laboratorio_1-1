@@ -10,7 +10,6 @@
 #include <limits.h>
 #include "utn_input.h"
 #include "ArrayEmployees.h"
-#include "hardcodDataEmploye.h"
 
 
 int main(void) {
@@ -19,7 +18,6 @@ int opcion;
 
 Employee employeeList[QTY_EMPLOYE];
 initEmployees(employeeList, QTY_EMPLOYE);
-hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 
   do
     {
