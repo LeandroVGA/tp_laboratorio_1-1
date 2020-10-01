@@ -11,7 +11,7 @@
 #define TRUE 1
 #define FALSE 0
 #define LONG_NAME_EMPLOYE 51
-#define QTY_EMPLOYE 6
+#define QTY_EMPLOYE 1000
 #define MAX_EMPLOYE 100
 
 struct
@@ -46,6 +46,8 @@ float sumaTotal(Employee* list, int len);
 float promedio(Employee* list, int len);
 int cantidadSuperiorAlPronedio(Employee* list, int len);
 int flagLimite(Employee* list, int len);
+int prepareForDelete (Employee *list, int len);
+int isEmpty(Employee* list, int limit, int index);
 
 
 

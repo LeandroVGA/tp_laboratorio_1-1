@@ -67,8 +67,8 @@ hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 		{
 		  printf ("\n*****************************************************");
 		  printf ("\n***************    MODIFICAR    *********************\n");
-		 printf ("*****************************************************\n");
-		  if (updateEmployee (employeeList, QTY_EMPLOYE) != 0) ///////////------------------------------------
+		  printf ("*****************************************************\n");
+		  if (updateEmployee (employeeList, QTY_EMPLOYE) != 0)
 		    {
 		      printf ("\n******\n");
 		      printf ("\nERROR!\n");
@@ -82,15 +82,14 @@ hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 		  printf ("\n*****************************************\n");
 
 		}
-
-	      break;
+	      break;//
 	    case 3:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
 	      	{
 		  printf ("\n*****************************************************");
 		  printf ("\n******************      BAJA    *********************\n");
 		  printf ("*****************************************************\n");
-	      if(prepareForDelete (employeeList,QTY_EMPLOYE)==-1)///////////------------------------------------
+	      if(prepareForDelete (employeeList,QTY_EMPLOYE)==-1)
 		{
 		  printf ("\n******\n");
 		  printf ("\nERROR!\n");
@@ -148,7 +147,6 @@ hardcodDatosEmpleado(employeeList, QTY_EMPLOYE_TEST);
 	  printf ("\n*****************************\n");
 	  printf ("\nSE TERMINARON LOS REINTENTOS!\n");
 	  printf ("\n*****************************\n");
-
 	  //return EXIT_SUCCESS;
 	}
     }

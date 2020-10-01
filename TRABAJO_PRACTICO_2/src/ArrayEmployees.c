@@ -145,6 +145,7 @@ int idIncremental(void)
 int chargeEmployee (Employee *list, int len)
 {
   Employee auxEmployee;
+  int retorno = -1;
 
   if (list != NULL && len > 0)
     {
@@ -164,33 +165,23 @@ int chargeEmployee (Employee *list, int len)
 	{
 	  return -1;
 	}
-      switch (utn_getAceptaRechaza ("\nAcepta el ingreso? s/n: ", "ERROR al ingresar opcion. \n", 's', 'n'))
+      if (utn_getAceptaRechaza ("\nAcepta el ingreso? s/n: ", "ERROR al ingresar opcion. \n", 's', 'n')==1)
 	{
-	case -1:
-	  return -1;
-	  break;
-
-	case 1:
 	  auxEmployee.id = idIncremental ();
+	  if(addEmployee (list, len, auxEmployee.id, auxEmployee.name, auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector)==0)
+	  {
+	      retorno = 0;
+	  }
 	  printf ("\n*****************************************************");
-	  printf ("\n                    ALTA EXITOSA!                  \n");
+          printf ("\n                    ALTA EXITOSA!                  \n");
 	  printf ("*****************************************************\n\n");
-	  if(addEmployee (list, len, auxEmployee.id, auxEmployee.name, auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector)!=0)
-	    {
-	      return -1;
-	    }
-	  return 0;
-	  break;
-
-	case 0:
-	  return 0;
-	  break;
-
-	default:
-	  break;
+	}
+      else
+	{
+	  retorno = 0;
 	}
     }
-  return -1;
+  return retorno;
 }
 
 
@@ -366,12 +357,12 @@ int updateEmployee (Employee *list, int len)
 	    {
 	      return EXIT_SUCCESS;
 	    }
-	}//FINAL DEL IF findEmployeeById
+	}
       else
 	{
 	  printf ("\nEl ID NO existe\n");
 	}
-    }//FINAL DEL IF VALIDACION DE NULL PRINCIPAL
+    }
   return retorno;
 }
 
@@ -417,6 +408,10 @@ int prepareForDelete (Employee *list, int len)
 	      printf ("*****************************************************\n\n");
 	    }
 	}
+      else
+  	{
+  	  printf ("\nEl ID NO existe\n");
+  	}
     }
   return retorno;
 }

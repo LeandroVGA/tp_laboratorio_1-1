@@ -1,3 +1,12 @@
 Modificaciones
-Ponerler un contador de reintentos faliidos a la funcion utn_getAceptaRechaza
+Ponerler un contador de reintentos fallidos a la funcion utn_getAceptaRechaza
+
+
+Agregar mensaje cuando no encuentra el id
+
+
+
+ver line 84 y 93
+
+
 
