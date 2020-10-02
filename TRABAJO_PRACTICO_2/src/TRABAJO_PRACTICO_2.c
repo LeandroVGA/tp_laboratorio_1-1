@@ -11,11 +11,9 @@
 #include "utn_input.h"
 #include "ArrayEmployees.h"
 
-
 int main(void) {
 setbuf(stdout,NULL);
 int opcion;
-
 Employee employeeList[QTY_EMPLOYE];
 initEmployees(employeeList, QTY_EMPLOYE);
 
@@ -30,13 +28,11 @@ initEmployees(employeeList, QTY_EMPLOYE);
 	      "4-Informar\n"
 	      "5-Salir\n\n");
 
-
       if (utn_getNumero ("\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", &opcion, 1, 5, 3) != -1)
 	{
 	  switch (opcion)
 	    {
 	    case 1:
-
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != -1)
 		{
 		  if (utn_searchFree (employeeList, QTY_EMPLOYE) == TRUE)
@@ -58,7 +54,6 @@ initEmployees(employeeList, QTY_EMPLOYE);
 		  printf ("\nLA CANTIDAD DE EMPLEADOS LLEGO A SU LIMITE!\n");
 		  printf ("\n*******************************************\n");
 		}
-
 	      break;
 	    case 2:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
@@ -78,61 +73,60 @@ initEmployees(employeeList, QTY_EMPLOYE);
 		  printf ("\n*****************************************\n");
 		  printf ("\nNO HAY EMPLEADOS CARGADOS PARA MODIFICAR!\n");
 		  printf ("\n*****************************************\n");
-
 		}
-	      break;//
+	      break;
 	    case 3:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
-	      	{
+		{
 		  printf ("\n*****************************************************");
 		  printf ("\n******************      BAJA    *********************\n");
 		  printf ("*****************************************************\n");
-	      if(prepareForDelete (employeeList,QTY_EMPLOYE)==-1)
-		{
-		  printf ("\n******\n");
-		  printf ("\nERROR!\n");
-		  printf ("\n******\n");
+		  if (prepareForDelete (employeeList, QTY_EMPLOYE) == -1)
+		    {
+		      printf ("\n******\n");
+		      printf ("\nERROR!\n");
+		      printf ("\n******\n");
+		    }
 		}
-	      	}
 	      else
-	      		{
+		{
 		  printf ("\n****************************************\n");
 		  printf ("\nNO HAY EMPLEADOS CARGADOS PARA ELIMINAR!\n");
 		  printf ("\n****************************************\n");
-	      		}
+		}
 	      break;
 	    case 4:
 	      if (flagLimite (employeeList, QTY_EMPLOYE) != 0)
-	        {
-		 printf ("\n*****************************************************");
-		 printf ("\n*****************    INFORMAR    ********************\n");
-		 printf ("*****************************************************\n");
-	      if(sortEmployees(employeeList, QTY_EMPLOYE, 1) == -1)
 		{
-		  printf ("\n******\n");
-		  printf ("\nERROR!\n");
-		  printf ("\n******\n");
+		  printf ("\n*****************************************************");
+		  printf ("\n*****************    INFORMAR    ********************\n");
+		  printf ("*****************************************************\n");
+		  if (sortEmployees (employeeList, QTY_EMPLOYE, 1) == -1)
+		    {
+		      printf ("\n******\n");
+		      printf ("\nERROR!\n");
+		      printf ("\n******\n");
+		    }
+		  headerEmployee ();
+		  printEmployees (employeeList, QTY_EMPLOYE);
+		  printf ("\n*****************************************************\n");
+		  printf ("TOTAL DE LOS SALARIOS: ");
+		  printf ("%.2f", sumaTotal (employeeList, QTY_EMPLOYE));
+		  printf ("\nPROMEDIO DE LOS SALARIOS: ");
+		  printf ("%.2f", promedio (employeeList, QTY_EMPLOYE));
+		  printf ("\nCANTIDAD DE EMPLEADOS QUE SUPERAN EL PROMEDIO: ");
+		  printf ("%d",cantidadSuperiorAlPromedio (employeeList, QTY_EMPLOYE));
+		  printf ("\n*****************************************************\n");
 		}
-	      headerEmployee();
-	      printEmployees(employeeList, QTY_EMPLOYE);
-	      printf ("\n*****************************************************\n");
-	      printf ("TOTAL DE LOS SALARIOS: ");
-	      printf ("%.2f",sumaTotal(employeeList, QTY_EMPLOYE));
-	      printf ("\nPROMEDIO DE LOS SALARIOS: ");
-	      printf ("%.2f",promedio(employeeList, QTY_EMPLOYE));
-      	      printf ("\nCANTIDAD DE EMPLEADOS QUE SUPERAN EL PROMEDIO: ");
-	      printf ("%d",cantidadSuperiorAlPromedio(employeeList, QTY_EMPLOYE));
-	      printf ("\n*****************************************************\n");
-	     	}
 	      else
-			{
+		{
 		  printf ("\n***************************************\n");
 		  printf ("\nNO HAY EMPLEADOS CARGADOS PARA MOSTRAR!\n");
 		  printf ("\n***************************************\n");
-			}
+		}
 	      break;
 	    case 5:
-	      printf("\nEL RPOGRAMA SE CERRO CON EXITO!\n");
+	      printf ("\nEL RPOGRAMA SE CERRO CON EXITO!\n");
 	      system ("pause");
 	      return EXIT_SUCCESS;
 	      break;
@@ -145,7 +139,6 @@ initEmployees(employeeList, QTY_EMPLOYE);
 	  printf ("\n*****************************\n");
 	  printf ("\nSE TERMINARON LOS REINTENTOS!\n");
 	  printf ("\n*****************************\n");
-	  //return EXIT_SUCCESS;
 	}
     }
   while (opcion != 5);
