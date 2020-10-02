@@ -550,7 +550,7 @@ int utn_getNombre (char *mensaje, char *mensajeError, char *pNombre, int longitu
     {
       do
 	{
-	  printf (mensaje);
+	  printf ("%s",mensaje);
 	  fflush (stdin);
 	  if (utn_getString (auxiliar, longitud) != -1 && utn_esSoloLetras (auxiliar, longitud) != -1)
 	    {
