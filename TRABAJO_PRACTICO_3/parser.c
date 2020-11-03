@@ -38,13 +38,12 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 							retorno = 0;
 							contadorEmployee++;
 							}
-
 						}
 					}
 				}while(!feof(pFile));
 			}
 		}
-		printf("Se cargaron %d empleados\n",contadorEmployee);
+		printf("||||Se cargaron [%d] empleados||||\n\n",contadorEmployee);
 		return retorno;
 }
 

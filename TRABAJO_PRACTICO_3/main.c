@@ -24,14 +24,10 @@
 int main()
 {
   setbuf(stdout,NULL);
-    int opcion = 0;
+    int opcion;
     int fileCahrge = 0;
 
-
   LinkedList* listaEmpleados = ll_newLinkedList();
-
-
-
 
     do{
 	printf ("\n*********"
@@ -48,24 +44,33 @@ int main()
 	        "\n9. Guardar los datos de los empleados en el archivo data.csv (modo binario)."
 	       "\n10. Salir\n\n");
 
-	if (utn_getNumero ("\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", &opcion, 1, 10, 3) != -1)
+	if (utn_getNumero (&opcion,"\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", 1, 10, 3) != -1)
 	  {
 	      switch(opcion)
 	      {
 		  case 1:
-		    printf("*****Cargar archivo texto*****");
+		    printf("\n*****Cargar archivo texto*****\n");
 		    if(fileCahrge == 0)
 		      {
 			controller_loadFromText("data.csv",listaEmpleados);
 			fileCahrge = 1;
 		      }
-		    else
-		      {
-			fileCahrge = 0;
-		      }
+		      else
+			{
+			  fileCahrge = 0;
+			}
 		      break;
 		  case 2:
 		      printf("\n*****Cargar archivo binario*****");
+		      if(fileCahrge == 0)
+		      {
+		      controller_loadFromBinary("data.dat",listaEmpleados);
+		      fileCahrge = 1;
+		      }
+		      else
+			  {
+			    fileCahrge = 0;
+			  }
 		      break;
 		  case 3:
 		      printf("\n*****Alta de Empleado*****");

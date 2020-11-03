@@ -47,7 +47,24 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	FILE *pArch;
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+
+		pArch = fopen(path, "rb");
+		if(pArch != NULL && parser_EmployeeFromBinary(pArch,pArrayListEmployee)==0)
+		{
+			printf("El archivo se cargo con exito\n");
+			retorno = 0;
+			fclose(pArch);
+		}
+		else
+
+			printf("El archivo no puede abrirse\n");
+	}
+
+	return retorno;
 }
 
 /** \brief Alta de empleados
