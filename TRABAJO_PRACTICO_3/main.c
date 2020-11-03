@@ -54,8 +54,15 @@ int main()
 	      {
 		  case 1:
 		    printf("*****Cargar archivo texto*****");
-		      controller_loadFromText("data.csv",listaEmpleados);
-		      fileCahrge = 1;
+		    if(fileCahrge == 0)
+		      {
+			controller_loadFromText("data.csv",listaEmpleados);
+			fileCahrge = 1;
+		      }
+		    else
+		      {
+			fileCahrge = 0;
+		      }
 		      break;
 		  case 2:
 		      printf("\n*****Cargar archivo binario*****");
