@@ -25,8 +25,14 @@ int main()
 {
   setbuf(stdout,NULL);
     int opcion = 0;
+    int fileCahrge = 0;
+
 
   LinkedList* listaEmpleados = ll_newLinkedList();
+
+
+
+
     do{
 	printf ("\n*********"
 		"\n   MENU   "
@@ -48,7 +54,8 @@ int main()
 	      {
 		  case 1:
 		    printf("*****Cargar archivo texto*****");
-//		      controller_loadFromText("data.csv",listaEmpleados);
+		      controller_loadFromText("data.csv",listaEmpleados);
+		      fileCahrge = 1;
 		      break;
 		  case 2:
 		      printf("\n*****Cargar archivo binario*****");
