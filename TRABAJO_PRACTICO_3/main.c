@@ -78,6 +78,7 @@ int main()
 		      break;
 		  case 4:
 		      printf("\n*****Modificacion datos de Empleado*****\n\n");
+		      controller_editEmployee(listaEmpleados);
 
 		      break;
 		  case 5:

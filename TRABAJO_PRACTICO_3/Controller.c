@@ -205,27 +205,8 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-		int retorno = -1;
-		int opcion;
-	 	int (*employee_pFordenarNombre)(void*, void*) = employee_ordenarNombre;
 
-
-		if(pArrayListEmployee != NULL)
-		{
-			retorno=0;
-			if(!utn_getNumero(&opcion,"Ingrese órden [1-ascendente / 0-descendente]\n","Valor inválido\n",0,1,2))
-			{
-				printf("Espere, se está cargando la lista\n");
-				if(ll_sort(pArrayListEmployee,employee_pFordenarNombre,opcion)==0)
-				{
-					printf("Fue ordenado correctamente\n");
-					retorno = 0;
-					controller_ListEmployee(pArrayListEmployee);
-				}
-			}
-		}
-
-		return retorno;
+		return -1;
 }
 
 
