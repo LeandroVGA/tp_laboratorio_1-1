@@ -78,7 +78,7 @@ int main()
 		      break;
 		  case 4:
 		      printf("\n*****Modificacion datos de Empleado*****\n\n");
-		      controller_editEmployee(listaEmpleados);
+
 
 		      break;
 		  case 5:
@@ -91,7 +91,7 @@ int main()
 		      break;
 		  case 7:
 		      printf("\n*****Ordenar Empleados*****\n\n");
-		      controller_sortEmployee(listaEmpleados);
+
 		      break;
 		  case 8:
 		      printf("\n***** Guardar datos de empleados en el archivo data.csv (modo texto)*****\n\n");
