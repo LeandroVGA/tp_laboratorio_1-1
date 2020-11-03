@@ -49,7 +49,7 @@ int main()
 	      switch(opcion)
 	      {
 		  case 1:
-		    printf("\n*****Cargar archivo texto*****\n");
+		    printf("\n*****Cargar archivo texto*****\n\n");
 		    if(fileCahrge == 0)
 		      {
 			controller_loadFromText("data.csv",listaEmpleados);
@@ -61,7 +61,7 @@ int main()
 			}
 		      break;
 		  case 2:
-		      printf("\n*****Cargar archivo binario*****");
+		      printf("\n*****Cargar archivo binario*****\n\n");
 		      if(fileCahrge == 0)
 		      {
 		      controller_loadFromBinary("data.dat",listaEmpleados);
@@ -73,7 +73,8 @@ int main()
 			  }
 		      break;
 		  case 3:
-		      printf("\n*****Alta de Empleado*****");
+		      printf("\n*****Alta de Empleado*****\n\n");
+		      controller_addEmployee(listaEmpleados);
 		      break;
 		  case 4:
 		      printf("\n*****Modificacion datos de Empleado*****");
