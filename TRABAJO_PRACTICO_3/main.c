@@ -34,7 +34,7 @@ int main()
 		"\n   MENU   "
 	        "\n*********"
 	        "\n1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)."
-	        "\n2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)."
+	        "\n2. Cargar los datos de los empleados desde el archivo data.dat (modo binario)."
 	        "\n3. Alta de empleado"
 	        "\n4. Modificar datos de empleado"
 	        "\n5. Baja de empleado"
@@ -89,14 +89,15 @@ int main()
 		      controller_ListEmployee(listaEmpleados);
 		      break;
 		  case 7:
-		      printf("\n*****Ordenar Empleados*****");
+		      printf("\n*****Ordenar Empleados*****\n\n");
+		      controller_sortEmployee(listaEmpleados);
 		      break;
 		  case 8:
-		      printf("\n***** Guardar datos de empleados en el archivo data.csv (modo texto)*****");
+		      printf("\n***** Guardar datos de empleados en el archivo data.csv (modo texto)*****\n\n");
 		      controller_saveAsText("data.csv", listaEmpleados);
 		      break;
 		  case 9:
-		      printf("\n***** Guardar datos de empleados en el archivo data.csv (modo binario)*****");
+		      printf("\n***** Guardar datos de empleados en el archivo data.dat (modo binario)*****\n\n");
 		      controller_saveAsBinary("data.dat" , listaEmpleados);
 		      break;
 		  case 10:
