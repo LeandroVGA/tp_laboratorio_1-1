@@ -217,7 +217,43 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno=-1;
+	int i;
+	FILE* fpArchivo;
+	int auxiliarId;
+	char auxiliarNombre[NOMBRE_LEN];
+	int auxiliarHsTrab;
+	int auxSueldo;
+	Employee* auxEmpleado;
+
+	if(pArrayListEmployee != NULL && path != NULL)
+	{
+
+		fpArchivo = fopen(path,"w");
+		if(fpArchivo != NULL)
+		{
+			retorno=0;
+			for(i=0;i<ll_len(pArrayListEmployee);i++)
+			{
+				auxEmpleado = (Employee*)ll_get(pArrayListEmployee,i);
+				if(auxEmpleado != NULL)
+				{
+					if(!employee_getId(auxEmpleado,&auxiliarId) &&
+					   !employee_getNombre(auxEmpleado,auxiliarNombre) &&
+					   !employee_getHorasTrabajadas(auxEmpleado,&auxiliarHsTrab) &&
+					   !employee_getSueldo(auxEmpleado,&auxSueldo))
+					{
+						fprintf(fpArchivo,"%d,%s,%d,%d\n",auxiliarId,auxiliarNombre,auxiliarHsTrab,auxSueldo);
+					}
+				}
+
+			}
+			fclose(fpArchivo);
+			printf("Archivo guardado correctamente\n");
+
+		}
+	}
+	return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
@@ -229,9 +265,36 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
-}
+	int retorno=-1;
+		int i;
+		FILE* fpArchivo;
+		Employee* auxEmpleado;
+		int contadorEmployee = 0;
+		int len;
 
+		if(pArrayListEmployee != NULL && path != NULL)
+		{
+			len = ll_len(pArrayListEmployee);
+
+			fpArchivo = fopen(path,"wb");
+			if(fpArchivo != NULL)
+			{
+				retorno=0;
+				for(i=0;i<len;i++)
+				{
+					auxEmpleado = ll_get(pArrayListEmployee, i);
+					if(fwrite(auxEmpleado, sizeof(Employee),1,fpArchivo)==1)
+					{
+						contadorEmployee++;
+					}
+				}
+				fclose(fpArchivo);
+				printf("Archivo cargado correctamente\n");
+				printf("Se guardaron %d empleados\n",contadorEmployee);
+			}
+		}
+		return retorno;
+}
 
 /**
  * \brief Busca un empleado por ID

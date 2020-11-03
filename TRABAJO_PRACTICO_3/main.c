@@ -85,16 +85,19 @@ int main()
 		      controller_removeEmployee(listaEmpleados);
 		      break;
 		  case 6:
-		      printf("\n*****Listar Empleados*****");
+		      printf("\n*****Listar Empleados*****\n\n");
+		      controller_ListEmployee(listaEmpleados);
 		      break;
 		  case 7:
 		      printf("\n*****Ordenar Empleados*****");
 		      break;
 		  case 8:
 		      printf("\n***** Guardar datos de empleados en el archivo data.csv (modo texto)*****");
+		      controller_saveAsText("data.csv", listaEmpleados);
 		      break;
 		  case 9:
 		      printf("\n***** Guardar datos de empleados en el archivo data.csv (modo binario)*****");
+		      controller_saveAsBinary("data.dat" , listaEmpleados);
 		      break;
 		  case 10:
 		    printf ("\nEL RPOGRAMA SE CERRO CON EXITO!\n");
