@@ -77,10 +77,12 @@ int main()
 		      controller_addEmployee(listaEmpleados);
 		      break;
 		  case 4:
-		      printf("\n*****Modificacion datos de Empleado*****");
+		      printf("\n*****Modificacion datos de Empleado*****\n\n");
+
 		      break;
 		  case 5:
-		      printf("\n*****Baja de Empleado*****");
+		      printf("\n*****Baja de Empleado*****\n\n");
+		      controller_removeEmployee(listaEmpleados);
 		      break;
 		  case 6:
 		      printf("\n*****Listar Empleados*****");

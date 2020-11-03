@@ -107,7 +107,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 			}
 			if(employee_newParametros(idAux,auxNombre,auxHsTrabajadas,sueldo) >= 0)
 			{
-
+				pAuxiliarEmpleado = (Employee*)employee_newParametros(idAux,auxNombre,auxHsTrabajadas,sueldo);
 				ll_add(pArrayListEmployee,pAuxiliarEmpleado);
 
 				retorno = 0;
@@ -139,7 +139,34 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno = -1;
+	int auxID;
+	int opcionAux;
+	int index;
+	Employee* auxEmployee;
+
+	if(pArrayListEmployee != NULL)
+	{
+		controller_ListEmployee(pArrayListEmployee);
+		if(!utn_getNumero(&auxID,"Ingrese el ID que desea eliminar\n","ID inválido\n",0,ll_len(pArrayListEmployee), 2))
+		{
+			index = controller_buscarPorIdArray(pArrayListEmployee, auxID);
+			auxEmployee = (Employee*)ll_get(pArrayListEmployee,index);
+			if(auxEmployee != NULL)
+			{
+				employee_imprimir(auxEmployee);
+
+				if(!utn_getNumero(&opcionAux,"Confirma eliminar el empleado? [0-NO/1-SI]\n","Opción inválida\n",0,1,2) && opcionAux == 1)
+				{
+					retorno = 0;
+					ll_remove(pArrayListEmployee,index);
+					employee_delete(auxEmployee);
+					printf("Empleado eliminado exitosamente\n");
+				}
+			}
+		}
+	}
+	return retorno;
 }
 
 /** \brief Listar empleados
@@ -151,7 +178,22 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int retorno=-1;
+	int i;
+	Employee* bufferpEmployee;
+	bufferpEmployee = employee_new();
+
+	if(pArrayListEmployee != NULL)
+	{
+		retorno=0;
+
+		for(i=0;i<ll_len(pArrayListEmployee);i++)
+		{
+			bufferpEmployee = ll_get(pArrayListEmployee,i);
+			employee_imprimir(bufferpEmployee);
+		}
+	}
+	return retorno;
 }
 
 /** \brief Ordenar empleados
@@ -228,6 +270,39 @@ static int idMaximoEncontrado(LinkedList* pArrayListEmployee, int* idMaximo)
 		}
 		*idMaximo = idAuxMaximo;
 
+	}
+	return retorno;
+}
+
+
+
+/**
+ * \brief Busca un empleado por ID
+ * \param pArrayListEmployee LinkedList* Puntero a la lista que será evaluada
+ * \return int Devuelve la ubicacion donde se encuentra el ID(OK), (-1)ERROR, (-2)ID NO ENCONTRADO
+ */
+
+int controller_buscarPorIdArray(LinkedList* pArrayListEmployee, int id)
+{
+	int retorno=-1;
+	int i;
+	int idAux;
+	Employee* auxEmpleado;
+
+	if(pArrayListEmployee != NULL && id >= 0)
+	{
+		retorno = -2;
+		for(i=0;i<ll_len(pArrayListEmployee);i++)
+		{
+			auxEmpleado = ll_get(pArrayListEmployee,i);
+			employee_getId(auxEmpleado, &idAux);
+
+			if( idAux == id)
+			{
+				retorno = i;
+				break;
+			}
+		}
 	}
 	return retorno;
 }
