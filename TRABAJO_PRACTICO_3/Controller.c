@@ -127,9 +127,45 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
-}
+	int retorno = -1;
+	Employee* auxEmployee;
+	int index;
+	int auxID;
+	int opcionAux;
+	char auxNombre[LEN_AUX];
+	int auxHsTrabajadas;
+	int sueldo;
 
+
+	if(pArrayListEmployee != NULL)
+	{
+		controller_ListEmployee(pArrayListEmployee);
+		if(!utn_getNumero(&auxID,"Ingrese el ID del empleado\n","ID inválido\n",0,ll_len(pArrayListEmployee), 2))
+		{
+			index = controller_buscarPorIdArray(pArrayListEmployee, auxID);
+			auxEmployee = (Employee*)ll_get(pArrayListEmployee,index);
+			if(auxEmployee != NULL)
+			{
+				employee_imprimir(auxEmployee);
+
+
+				if(!utn_getNumero(&opcionAux,"Confirma modificar el empleado? [0-NO/1-SI]\n","Opción inválida\n",0,1,2) && opcionAux == 1)
+				{
+					if(!(utn_getNombre(auxNombre, LEN_AUX,"Ingrese nombre\n", "Valor incorrecto\n",2)) &&
+					   !(utn_getNumero(&auxHsTrabajadas,"Ingrese horas trabajadas\n", "Valor incorrecto\n",1, 1000,2)) &&
+					   !(utn_getNumero(&sueldo,"Ingrese sueldo\n", "Valor incorrecto\n",1, 1000000,2)))
+					{
+					retorno = 0;
+					employee_setNombre(auxEmployee, auxNombre);
+					employee_setHorasTrabajadas(auxEmployee, auxHsTrabajadas);
+					employee_setSueldo(auxEmployee,sueldo);
+					}
+				}
+			}
+		}
+	}
+	return retorno;
+}
 /** \brief Baja de empleado
  *
  * \param path char*
@@ -205,8 +241,27 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
+		int retorno = -1;
+		int opcion;
+	 	int (*employee_pFordenarNombre)(void*, void*) = employee_ordenarNombre;
 
-		return -1;
+
+		if(pArrayListEmployee != NULL)
+		{
+			retorno=0;
+			if(!utn_getNumero(&opcion,"Ingrese órden [1-ascendente / 0-descendente]\n","Valor inválido\n",0,1,2))
+			{
+				printf("Espere, se está cargando la lista\n");
+				if(ll_sort(pArrayListEmployee,employee_pFordenarNombre,opcion)==0)
+				{
+					printf("Fue ordenado correctamente\n");
+					retorno = 0;
+					controller_ListEmployee(pArrayListEmployee);
+				}
+			}
+		}
+
+		return retorno;
 }
 
 
